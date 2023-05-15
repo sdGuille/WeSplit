@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var name = ""
+    let students = ["Harry", "Hermione", "Ron"] // no need @State because constant
+    @State private var selectedStudent = "Harry" // this thing can be changed
     
     var body: some View {
-        Form {
-            TextField("Write your name here", text: $name) // $ biding
-            Text("Welcome \(name), We are glad get you here")
+        NavigationView {
+            Form {
+                Picker("Select your student", selection: $selectedStudent) {
+                    ForEach(students, id: \.self) {
+                        Text($0)
+                    }
+                }
+            }
+            .navigationTitle("Students")
         }
     }
 }
