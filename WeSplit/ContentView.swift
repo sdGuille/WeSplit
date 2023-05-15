@@ -8,23 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State private var tapCount = 0
     
     var body: some View {
-        NavigationView {
-            Form {
-                /* Swift only allows to use 10 childs
-                 inside of views
-                 for that reason we have to use
-                 Groups or Sections if we want more */
-                Section {
-                    Text("Hello World")
-                    Text("Hello, Mom")
-                    Text("Hello, Girl")
-                    Text("Hello, Mom")
-                }
-            }
-            .navigationTitle("SwiftUI")
+        Button("Tap Count: \(tapCount)") {
+            tapCount += 1
         }
     }
 }
