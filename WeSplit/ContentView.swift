@@ -26,6 +26,12 @@ struct ContentView: View {
         return amountPerPerson
     }
     
+    var totalAmount: Double {
+        let tipValue = checkAmount / 100 * Double(tipPercentage)
+        let total = checkAmount + tipValue
+        return total.rounded()
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -43,17 +49,24 @@ struct ContentView: View {
                 
                 Section {
                     Picker("Tip percentage", selection: $tipPercentage) {
-                        ForEach(tipPerecentages, id: \.self) {
+                        ForEach(0..<101) {
                             Text($0, format: .percent)
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.automatic)
                 } header: {
                     Text("How much tip do you want to leave")
                 }
                 
                 Section {
                     Text(totalPerPerson, format: .currency(code: "USD"))
+                } header: {
+                    Text("Amount per person")
+                }
+                Section {
+                    Text(totalAmount, format: .currency(code: "USD"))
+                } header: {
+                    Text("Total amount")
                 }
             }
             .navigationTitle("WeSplit")
